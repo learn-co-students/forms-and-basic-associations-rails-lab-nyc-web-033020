@@ -9,6 +9,7 @@ class SongsController < ApplicationController
 
   def new
     @song = Song.new
+    2.times { @song.notes.build }
   end
 
   def create
@@ -44,10 +45,17 @@ class SongsController < ApplicationController
     redirect_to songs_path
   end
 
+  def notes
+    @notes
+  end
+
+  def notes_attributes=(attributes)
+  end
+
   private
 
   def song_params
-    params.require(:song).permit(:title)
+    params.require(:song).permit(:title, :genre_id, :artist_name, notes_attributes: :content)
   end
 end
 
